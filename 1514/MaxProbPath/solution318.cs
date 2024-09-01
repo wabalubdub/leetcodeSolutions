@@ -14,12 +14,12 @@ namespace MaxProbPath310824
         double[] _succProbToNode;
         public double MaxProbability(int n, int[][] edges, double[] succProb, int start_node, int end_node) {
             InitializeEdgesByNode(edges,n);
-            RunDyextra(n, succProb,start_node);
+            RunDyextra(n, succProb,start_node,end_node);
 
            return _succProbToNode[end_node];
         }
 
-        private void RunDyextra(int n,double[] succProb, int start_node)
+        private void RunDyextra(int n,double[] succProb, int start_node,int target_node)
         {
             nodesToVisit = new List<int>();
             _succProbToNode=new double[n];
@@ -34,20 +34,22 @@ namespace MaxProbPath310824
                 
                 int visitingNode = GetNextNode();
                 
-
+                
                 
                 nodesToVisit.Remove(visitingNode);
+                if (visitingNode == target_node)
+                {
+                    nodesToVisit.RemoveAll((i)=>true);
+                }
 
                 foreach( int edgeIndex in edgesByNode[visitingNode]){
                     int neighbor =getOtherNode(_edges[edgeIndex],visitingNode);
-                    if (nodesToVisit.Contains(neighbor))
-                    {
+
                         double Alt =  _succProbToNode[visitingNode]*succProb[edgeIndex];
                         if (Alt > _succProbToNode[neighbor])
                         {
                             _succProbToNode[neighbor]=Alt;
                         }
-                    }
 
                 }
             }
