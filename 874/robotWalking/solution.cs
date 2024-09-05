@@ -34,8 +34,6 @@ public class Solution {
             direction = direction.Turn(i);
         }
         else {
-            int xTomove;
-            int yTomove;
             PreformMoveCommand(i);
         }
     }
