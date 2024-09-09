@@ -51,7 +51,10 @@ public class Solution {
     {
         int x1 = positions[indexToStart][0];
         int y1 = positions[indexToStart][1];
-        List<int[]> pos = positions.ToList();
+        int[,] pos = new int[50,50];
+        for (int i = 0;i<positions.Length;i++){
+            pos[positions[i][0],positions[i][1]]=i+1;
+        }
         bool[,] GoingTo=new bool[50,50];;
         int [] distances = new int [positions.Length];
         Queue<(int x, int y)> locations = new Queue<(int x, int y)>();
@@ -70,8 +73,10 @@ public class Solution {
                 locations.Enqueue((-1,-1));
             }
             else {
-                int index = pos.FindIndex((v)=>v[0]==XtolookAt && v[1]==YtolookAt);
-                if (index!=-1){
+                int index = pos[XtolookAt,YtolookAt];
+                if (index!=0)
+                {
+                    index = index-1;
                     distances[index] = count;
                     found.Add(index);
                 }
