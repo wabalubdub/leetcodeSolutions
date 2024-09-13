@@ -1,15 +1,13 @@
 namespace Xors;
-public class Solution {
-    int sizeOfSection;    
-    int[] sectionedXors;
+public class Solution {  
+    int[] prefixXors;
     int[] arr;
 
 
     public int[] XorQueries(int[] arr, int[][] queries)
     {
         this.arr = arr;
-        sizeOfSection = (int)Math.Sqrt(arr.Length);
-        CalculateSections();
+        CalculatePrefixXors();
         int[] returnArray = new int[queries.Length];
         for (int i = 0; i < queries.Length; i++)
         {
@@ -19,35 +17,22 @@ public class Solution {
 
     }
 
-    private void CalculateSections()
+    private void CalculatePrefixXors()
     {
-        sectionedXors = new int[(arr.Length / sizeOfSection) + 1];
-        for (int i = 0; i < arr.Length; i += sizeOfSection)
+        prefixXors = new int[arr.Length+1];
+        int prefixSoFar=0;
+        prefixXors[0]=0;
+        for (int i = 1; i < arr.Length+1; i ++)
         {
-            sectionedXors[i / sizeOfSection] = XorIndexes(arr, i, i + sizeOfSection);
+            prefixXors[i]=prefixSoFar^arr[i-1];
+            prefixSoFar=prefixXors[i];
         }
     }
 
     private int Query(int left, int right)
     {
-        int sectionL = left/sizeOfSection;
-        int sectionR = right/sizeOfSection;
-        if (sectionL==sectionR){
-            return XorIndexes (arr,left,right+1);
-        }
-        else{
-            return XorIndexes (arr,left,(sectionL+1)*sizeOfSection)^XorIndexes (arr,sectionR*sizeOfSection,right+1)^XorIndexes (sectionedXors,sectionL+1,sectionR);
-        }
+        return prefixXors[left] ^prefixXors[right+1];
 
-    }
-
-    private int XorIndexes(int[] arr, int i, int v)
-    {
-       int result = 0;
-       for(int j=i;j<v &j<arr.Length;j++){
-            result^=arr[j];
-       }
-       return result;
     }
 
 }
