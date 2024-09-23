@@ -1,40 +1,41 @@
+using System.Runtime.Intrinsics.Arm;
+
 namespace ExtraStrings;
 public class Solution {
-    public int [,] solutionUpTo;
+    public int [] ExtraCharsFromIndex;
+    public string s;
+    public string [] dictionary;
     public int MinExtraChar(string s, string[] dictionary) {
-        solutionUpTo = new int[s.Length,s.Length+1];
-        for (int i = 0;i < s.Length; i++) 
+        this.s = s;
+        this.dictionary = dictionary;
+        ExtraCharsFromIndex = new int[s.Length+1];
+        Array.Fill (ExtraCharsFromIndex,-1);
+        return DP(0);
+ 
+    }
+
+    private int DP(int startIndex)
+    {
+        if (ExtraCharsFromIndex[startIndex]!=-1){
+            return ExtraCharsFromIndex[startIndex];
+        }
+        if(startIndex ==s.Length){
+            ExtraCharsFromIndex[startIndex] = 0;
+            return 0;
+        }
+        string substring = s.Substring (startIndex);
+        int minSoFar = 1 +DP(startIndex+1);
+        foreach( string word in dictionary) 
         {
-            for (int j = 0;j < s.Length+1;j++){
-                solutionUpTo[i,j] = -1;
+            if (substring.StartsWith (word)){
+                minSoFar = Math.Min(minSoFar,DP(startIndex+word.Length));
             }
         }
-        int value =  DPMinExtraChar(s, dictionary, 0, s.Length);
-        return value;
-    }
+        ExtraCharsFromIndex[startIndex] = minSoFar;
+        return minSoFar;
 
-    public int DPMinExtraChar(string s,string[] dictionary, int startIndex, int length){
-        if (solutionUpTo[startIndex,length] != -1){
-            return solutionUpTo[startIndex,length];
-        }
-        string substring = s.Substring(startIndex,length);
-        if (dictionary.Contains(substring))
-            {
-                solutionUpTo[startIndex,length] = 0;
-                return 0;
-            }
-            if (length == 1){
-                solutionUpTo[startIndex,length] = 1;
-                return 1;
-            }
-            int minSoFar = int.MaxValue;{
-                for (int L = 1;L<length;L++){
-                    minSoFar = Math.Min(minSoFar,DPMinExtraChar(s, dictionary, startIndex, L)+DPMinExtraChar(s, dictionary, startIndex+L, length-L));
-                }
-                solutionUpTo[startIndex,length] = minSoFar;
-                return minSoFar;
-            }
-    }
+    }    
 
+    
     
 }
