@@ -1,0 +1,1 @@
+﻿AllOne obj = new AllOne();
