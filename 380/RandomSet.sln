@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomSet", "RandomSet\RandomSet.csproj", "{F116FF9E-4AC7-467B-82F1-804B43F66A6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F116FF9E-4AC7-467B-82F1-804B43F66A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F116FF9E-4AC7-467B-82F1-804B43F66A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F116FF9E-4AC7-467B-82F1-804B43F66A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F116FF9E-4AC7-467B-82F1-804B43F66A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
